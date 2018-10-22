@@ -1,0 +1,23 @@
+apiVersion: 0.3.0
+environments:
+  dev:
+    destination:
+      namespace: ks-infra-kube
+      server: https://192.168.100.105:6443
+    k8sVersion: v1.10.7
+    path: dev
+kind: ksonnet.io/app
+libraries:
+  helm-stable/cert-manager:
+    name: cert-manager
+    registry: helm-stable
+    version: ""
+name: mxrss-cluster-setup
+registries:
+  helm-stable:
+    protocol: helm
+    uri: https://kubernetes-charts.storage.googleapis.com
+  incubator:
+    protocol: github
+    uri: github.com/ksonnet/parts/tree/master/incubator
+version: 0.0.1

@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-ingress
+spec:
+  tls:
+    - secretName: example-com-tls
+  rules:
+  - host: mxrss.ddns.net
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: echoserver
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+# apiVersion: certmanager.k8s.io/v1alpha1
+# kind: Certificate
+# metadata:
+#   name: example-com
+# spec:
+#   secretName: example-com-tls
+#   issuerRef:
+#     name: letsencrypt-staging
+#   commonName: mxrss.ddns.net
+#   dnsNames:
+#   - mxrss.ddns.net
+#   acme:
+#     config:
+#     - http01:
+#         ingressClass: nginx
+#       domains:
+#       - mxrss.ddns.net
+#     # - http01:
+#     #     ingress: demo-ingress
+#     #   domains:
+#     #   - mxrss.ddns.net
