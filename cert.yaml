@@ -41,25 +41,4 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
----
-# apiVersion: certmanager.k8s.io/v1alpha1
-# kind: Certificate
-# metadata:
-#   name: example-com
-# spec:
-#   secretName: example-com-tls
-#   issuerRef:
-#     name: letsencrypt-staging
-#   commonName: mxrss.ddns.net
-#   dnsNames:
-#   - mxrss.ddns.net
-#   acme:
-#     config:
-#     - http01:
-#         ingressClass: nginx
-#       domains:
-#       - mxrss.ddns.net
-#     # - http01:
-#     #     ingress: demo-ingress
-#     #   domains:
-#     #   - mxrss.ddns.net
+
